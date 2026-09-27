@@ -1,0 +1,108 @@
+[gd_scene load_steps=8 format=3]
+
+[ext_resource type="Script" path="res://scripts/main/main.gd" id="1_main"]
+[ext_resource type="Script" path="res://scripts/world/visual_world.gd" id="2_world"]
+[ext_resource type="PackedScene" path="res://scenes/player/Player.tscn" id="3_player"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_ground"]
+size = Vector3(100, 0.2, 100)
+
+[sub_resource type="BoxMesh" id="BoxMesh_building"]
+size = Vector3(5, 3, 5)
+
+[sub_resource type="BoxShape3D" id="BoxShape_ground"]
+size = Vector3(100, 1, 100)
+
+[sub_resource type="BoxMesh" id="BoxMesh_square"]
+size = Vector3(12, 0.1, 12)
+
+[node name="Main" type="Node3D"]
+script = ExtResource("1_main")
+
+[node name="World" type="Node3D" parent="."]
+script = ExtResource("2_world")
+
+[node name="Ground" type="StaticBody3D" parent="World"]
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="World/Ground"]
+mesh = SubResource("BoxMesh_ground")
+position = Vector3(0, -0.1, 0)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="World/Ground"]
+shape = SubResource("BoxShape_ground")
+position = Vector3(0, -0.5, 0)
+
+[node name="VillageSquare" type="Node3D" parent="World"]
+
+[node name="SquareGround" type="Node3D" parent="World/VillageSquare"]
+
+[node name="SquareMesh" type="MeshInstance3D" parent="World/VillageSquare/SquareGround"]
+mesh = SubResource("BoxMesh_square")
+
+[node name="Roads" type="Node3D" parent="World"]
+
+[node name="Road1" type="Node3D" parent="World/Roads"]
+
+[node name="Mesh" type="MeshInstance3D" parent="World/Roads/Road1"]
+mesh = SubResource("BoxMesh_square")
+position = Vector3(0, 0.01, 0)
+
+[node name="Shrine" type="Node3D" parent="World"]
+position = Vector3(10, 0, 0)
+
+[node name="Base" type="Node3D" parent="World/Shrine"]
+
+[node name="Mesh" type="MeshInstance3D" parent="World/Shrine/Base"]
+mesh = SubResource("BoxMesh_building")
+
+[node name="Inn" type="Node3D" parent="World"]
+position = Vector3(-10, 0, 0)
+
+[node name="Base" type="Node3D" parent="World/Inn"]
+
+[node name="Mesh" type="MeshInstance3D" parent="World/Inn/Base"]
+mesh = SubResource("BoxMesh_building")
+
+[node name="MerchantShop" type="Node3D" parent="World"]
+position = Vector3(0, 0, 10)
+
+[node name="Base" type="Node3D" parent="World/MerchantShop"]
+
+[node name="Mesh" type="MeshInstance3D" parent="World/MerchantShop/Base"]
+mesh = SubResource("BoxMesh_building")
+
+[node name="Blacksmith" type="Node3D" parent="World"]
+position = Vector3(0, 0, -10)
+
+[node name="Base" type="Node3D" parent="World/Blacksmith"]
+
+[node name="Mesh" type="MeshInstance3D" parent="World/Blacksmith/Base"]
+mesh = SubResource("BoxMesh_building")
+
+[node name="Farm" type="Node3D" parent="World"]
+position = Vector3(15, 0, 15)
+
+[node name="Base" type="Node3D" parent="World/Farm"]
+
+[node name="Mesh" type="MeshInstance3D" parent="World/Farm/Base"]
+mesh = SubResource("BoxMesh_building")
+
+[node name="ForestEdge" type="Node3D" parent="World"]
+position = Vector3(-15, 0, -15)
+
+[node name="Base" type="Node3D" parent="World/ForestEdge"]
+
+[node name="Mesh" type="MeshInstance3D" parent="World/ForestEdge/Base"]
+mesh = SubResource("BoxMesh_building")
+
+[node name="Player" parent="." instance=ExtResource("3_player")]
+position = Vector3(0, 1, 5)
+
+[node name="Sun" type="DirectionalLight3D" parent="World"]
+rotation_degrees = Vector3(-50, -30, 0)
+light_energy = 1.2
+shadow_enabled = true
+
+[node name="AmbientLight" type="DirectionalLight3D" parent="World"]
+rotation_degrees = Vector3(-20, 150, 0)
+light_energy = 0.3

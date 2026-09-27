@@ -1,0 +1,10 @@
+﻿.godot/
+.import/
+export/
+__pycache__/
+*.pyc
+.env
+.venv/
+venv/
+.vscode/
+*.log
